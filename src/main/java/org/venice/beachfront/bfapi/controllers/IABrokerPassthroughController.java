@@ -11,7 +11,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.venice.beachfront.bfapi.services.IABrokerPassthroughService;
-import org.venice.beachfront.bfapi.services.IABrokerPassthroughService.Response;
 
 /**
  * Main controller class for the passthrough to bf-ia-broker.
@@ -31,15 +30,15 @@ public class IABrokerPassthroughController {
 	@ResponseBody
 	public CompletableFuture<ResponseEntity<byte[]>> passthrough(HttpServletRequest request) throws IOException {
 		String iaURI = request.getRequestURI().substring(4); // Skip "/ia/"
-		CompletableFuture<Response> future = this.iaBrokerPassthroughService.passthroughRequest(iaURI, request);
+		CompletableFuture<IABrokerPassthroughService.Response> future = this.iaBrokerPassthroughService.passthroughRequest(iaURI, request);
 
-		return future.thenApply((Response response) -> {
+		return future.thenApply((IABrokerPassthroughService.Response response) -> {
 			return this.buildResponseEntity(response);
 		});
 	}
 	
 	
-	private ResponseEntity<byte[]> buildResponseEntity(Response response) {
+	private ResponseEntity<byte[]> buildResponseEntity(IABrokerPassthroughService.Response response) {
 		if (response.getThrowable() != null) {
 			response.getThrowable().printStackTrace();
 		}
