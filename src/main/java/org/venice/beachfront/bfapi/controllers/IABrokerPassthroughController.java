@@ -20,33 +20,22 @@ import org.venice.beachfront.bfapi.services.IABrokerPassthroughService;
 @Controller
 public class IABrokerPassthroughController {
 	private IABrokerPassthroughService iaBrokerPassthroughService;
-	
+
 	@Autowired
 	public IABrokerPassthroughController(IABrokerPassthroughService service) {
 		this.iaBrokerPassthroughService = service;
 	}
-	
+
 	@RequestMapping(path="/ia/**")
 	@ResponseBody
 	public CompletableFuture<ResponseEntity<byte[]>> passthrough(HttpServletRequest request) throws IOException {
 		String iaURI = request.getRequestURI().substring(4); // Skip "/ia/"
 		CompletableFuture<IABrokerPassthroughService.Response> future = this.iaBrokerPassthroughService.passthroughRequest(iaURI, request);
 
-		return future.thenApply((IABrokerPassthroughService.Response response) -> {
-			return this.buildResponseEntity(response);
-		});
-	}
-	
-	
-	private ResponseEntity<byte[]> buildResponseEntity(IABrokerPassthroughService.Response response) {
-		if (response.getThrowable() != null) {
-			response.getThrowable().printStackTrace();
-		}
-				
-		return new ResponseEntity<byte[]>(
+		return future.thenApply((IABrokerPassthroughService.Response response) -> new ResponseEntity<byte[]>(
 				response.getBody(),
 				response.getHeaders(),
 				response.getStatusCode()
-				);
+				));
 	}
 }

@@ -14,7 +14,6 @@ public interface IABrokerPassthroughService {
 		public HttpStatus getStatusCode();
 		public HttpHeaders getHeaders();
 		public byte[] getBody();
-		public Throwable getThrowable();
 	}
 
 	public CompletableFuture<Response> passthroughRequest(String uri, HttpServletRequest request) throws MalformedURLException, IOException;

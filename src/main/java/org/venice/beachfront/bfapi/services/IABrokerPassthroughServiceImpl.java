@@ -92,7 +92,6 @@ public class IABrokerPassthroughServiceImpl implements IABrokerPassthroughServic
 		HttpStatus responseCode;
 		HttpHeaders responseHeaders = new HttpHeaders();
 		byte[] responseContent = new byte[0];
-		Exception exc = null;
 
 		HttpEntity<char[]> entity = new HttpEntity<char[]>(content, headers);
 		try {
@@ -110,10 +109,10 @@ public class IABrokerPassthroughServiceImpl implements IABrokerPassthroughServic
 			responseContent = e.toString().getBytes();
 		}
 
-		return this.createResponse(responseCode, responseHeaders, responseContent, exc);
+		return this.createResponse(responseCode, responseHeaders, responseContent);
 	}
 
-	private IABrokerPassthroughService.Response createResponse(HttpStatus responseCode, HttpHeaders responseHeaders, byte[] responseContent, Throwable throwable) {
+	private IABrokerPassthroughService.Response createResponse(HttpStatus responseCode, HttpHeaders responseHeaders, byte[] responseContent) {
 		return new IABrokerPassthroughService.Response() {
 			public byte[] getBody() {
 				return responseContent;
@@ -125,10 +124,6 @@ public class IABrokerPassthroughServiceImpl implements IABrokerPassthroughServic
 
 			public HttpHeaders getHeaders() {
 				return responseHeaders;
-			}
-
-			public Throwable getThrowable() {
-				return throwable;
 			}
 		};
 	}
