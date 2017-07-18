@@ -7,7 +7,7 @@ import org.joda.time.DateTime;
 import org.venice.beachfront.bfapi.model.Confirmation;
 import org.venice.beachfront.bfapi.model.Job;
 
-public class MockJobServiceImpl implements JobService {
+public class JobServiceProtoImpl implements JobService {
 
 	@Override
 	public Job createJob() {

@@ -21,18 +21,19 @@ public class Job {
 	@JsonIgnore private final String planetApiKey;
 	
 	/**
-	 * @param jobId
-	 * @param jobName
-	 * @param status
-	 * @param createdByUserId
-	 * @param createdOn
-	 * @param algorithmName
-	 * @param algorithmVersion
-	 * @param geometry
-	 * @param sceneSensorName
-	 * @param sceneTimeOfCollection
-	 * @param sceneId
-	 * @param extras
+	 * @param jobId job unique ID
+	 * @param jobName job name
+	 * @param status job status in Piazza
+	 * @param createdByUserId ID of user who created the job
+	 * @param createdOn job creation time
+	 * @param algorithmName name (ID) of algorithm job is using
+	 * @param algorithmVersion version of algorithm job is using
+	 * @param geometry GeoJSON geometry describing the job
+	 * @param sceneSensorName name of sensor source for job imagery
+	 * @param sceneTimeOfCollection collection time of job imagery
+	 * @param sceneId scene ID of job imagery
+	 * @param extras extra algorithm-dependent data
+	 * @param planetApiKey API key to use when contacting the Planet Labs API
 	 */
 	public Job(String jobId, String jobName, String status, String createdByUserId, DateTime createdOn, String algorithmName,
 			String algorithmVersion, Object geometry, String sceneSensorName, DateTime sceneTimeOfCollection,
