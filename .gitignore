@@ -1,0 +1,13 @@
+/target/
+
+# Eclipse
+.settings
+.project
+
+
+# Maven
+.classpath
+.m2
+
+# Misc
+.DS_Store
